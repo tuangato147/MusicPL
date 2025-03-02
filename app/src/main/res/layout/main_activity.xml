@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="Music Player"
+            android:textColor="#121212"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:background="@drawable/text_background"
+            android:shadowColor="#80000000"
+            android:shadowDx="6"
+            android:shadowDy="6"
+            android:shadowRadius="10"
+            android:padding="8dp"/>
+
+        <!-- Song Status -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Tạm dừng nhạc"
+            android:textColor="#757575"
+            android:textSize="16sp" />
+
+        <!-- Song Title -->
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="Tên Bài Hát"
+            android:textColor="#212121"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Time Layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="00:00"
+                android:textColor="#616161"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00:00"
+                android:textColor="#616161"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- SeekBar -->
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:max="100"
+            android:progressTint="#3F51B5"
+            android:thumbTint="#3F51B5" />
+
+        <!-- Shuffle and Repeat Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="-5dp">
+
+            <ImageView
+                android:id="@+id/shuffleButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Shuffle"
+                app:srcCompat="@drawable/ic_shuffle"
+                android:background="@drawable/circle_background"
+                app:tint="#212121"
+                android:padding="8dp"/>
+
+            <ImageView
+                android:id="@+id/repeatButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="Repeat"
+                app:srcCompat="@drawable/ic_repeat_on"
+                android:background="@drawable/circle_background"
+                app:tint="#212121"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <!-- Playback Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <!-- Previous Button -->
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="Skip Previous"
+                app:srcCompat="@drawable/ic_skip_previous"
+                android:background="@drawable/circle_background"
+                app:tint="#212121" />
+
+            <!-- Play Button -->
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="Play"
+                app:srcCompat="@drawable/ic_play_arrow"
+                app:tint="#3F51B5"
+                android:background="@drawable/circle_background"
+                android:padding="16dp" />
+
+            <!-- Pause Button -->
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="Pause"
+                android:background="@drawable/circle_background"
+                app:srcCompat="@drawable/ic_pause"
+                app:tint="#212121" />
+
+            <!-- Next Button -->
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="Skip Next"
+                app:srcCompat="@drawable/ic_skip_next"
+                android:background="@drawable/circle_background"
+                app:tint="#212121" />
+        </LinearLayout>
+
+        <!-- Search Bar -->
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dán URL"
+            android:padding="12dp"
+            android:textColorHint="#757575"
+            android:textColor="#212121"
+            android:drawablePadding="8dp"
+            android:textSize="16sp"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <!-- Progress Bar for Searching -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+
+        <!-- Search Button -->
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn nhạc"
+            android:layout_marginTop="16dp"
+            android:textColor="#FFFFFF"
+            android:background="#3F51B5" />
+
+        <!-- Song List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/songListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

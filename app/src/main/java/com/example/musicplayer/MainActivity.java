@@ -72,12 +72,16 @@ public class MainActivity extends AppCompatActivity implements Player.Listener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-
-        initializeViews();
-        setupPlayer();
-        setupClickListeners();
-        checkPermissions();
+        try {
+            setContentView(R.layout.main_activity);
+            initializeViews();
+            setupPlayer();
+            setupClickListeners();
+            checkPermissions();
+        } catch (Exception e) {
+            Toast.makeText(this, "Lỗi khởi tạo ứng dụng: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     private void initializeViews() {
@@ -190,7 +194,13 @@ public class MainActivity extends AppCompatActivity implements Player.Listener {
     }
 
     private void checkPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13 (API 33)
+            if (checkSelfPermission(android.Manifest.permission.READ_MEDIA_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_MEDIA_AUDIO}, PERMISSION_REQUEST_CODE);
+            } else {
+                showDirectorySelectionDialog();
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // Android 6-12
             if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
@@ -200,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements Player.Listener {
             } else {
                 showDirectorySelectionDialog();
             }
-        } else {
+        } else { // Android 5 trở xuống
             showDirectorySelectionDialog();
         }
     }
@@ -266,10 +276,14 @@ public class MainActivity extends AppCompatActivity implements Player.Listener {
 
     private void handleSongSelection(Uri uri) {
         if (uri != null) {
-            songFiles.clear();
-            songFiles.add(uri.toString());
-            currentSongIndex = 0;
-            playSong(uri.toString());
+            try {
+                songFiles.clear();
+                songFiles.add(uri.toString());
+                currentSongIndex = 0;
+                playSong(uri.toString());
+            } catch (SecurityException e) {
+                Toast.makeText(this, "Không thể truy cập tệp: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -418,18 +432,15 @@ public class MainActivity extends AppCompatActivity implements Player.Listener {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showDirectorySelectionDialog();
             } else {
-                Toast.makeText(this, "Ứng dụng cần quyền truy cập để đọc file nhạc",
-                        Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(this, "Ứng dụng cần quyền truy cập để đọc file nhạc. Vui lòng cấp quyền trong cài đặt.", Toast.LENGTH_LONG).show();
+                // Không thoát ứng dụng, thay vào đó hiển thị thông báo
+                showDirectorySelectionDialog(); // Vẫn cho phép người dùng chọn thư mục qua SAF
             }
         }
     }

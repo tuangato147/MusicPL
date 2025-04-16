@@ -20,7 +20,6 @@
 - Android Studio
 - XML (giao diện)
 - MediaPlayer (xử lý phát nhạc)
-- Glide (tải ảnh album)
 - [Room Database – dự kiến tích hợp]
 - [Firebase Cloud Messaging – dự kiến tích hợp]
 
